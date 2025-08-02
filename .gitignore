@@ -156,3 +156,5 @@ tmp/
 # Configuration files with sensitive data
 config_local.py
 secrets.py
+
+config.py
