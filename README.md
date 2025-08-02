@@ -13,6 +13,108 @@
 - **完整測試覆蓋**: 單元測試、集成測試、API 測試
 - **生產就緒**: 具備監控、日誌、配置管理等企業功能
 
+## 🚧 開發中項目 (Development Roadmap)
+
+### 🤖 AI 代理工具整合
+正在開發將 RAGFlow 功能整合為 AI 代理工具的解決方案，讓智能代理可以調用 RAG 檢索功能。
+
+#### 1. 線上代理機器人整合
+```python
+# AI 代理工具接口設計
+class RAGFlowTool:
+    """RAGFlow RAG 功能作為 AI 代理工具"""
+    
+    def __init__(self, api_url: str, api_key: str):
+        self.ragflow_client = RAGFlowClient(api_url, api_key)
+    
+    async def search_knowledge(self, query: str, dataset_id: str) -> Dict:
+        """為 AI 代理提供知識檢索功能"""
+        return await self.ragflow_client.query(query, dataset_id)
+    
+    def get_tool_schema(self) -> Dict:
+        """返回工具的 JSON Schema 定義"""
+        return {
+            "name": "ragflow_search",
+            "description": "搜索知識庫並獲取相關信息",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {"type": "string", "description": "搜索問題"},
+                    "dataset_id": {"type": "string", "description": "數據集ID"}
+                }
+            }
+        }
+```
+
+#### 2. LINE Bot 機器人整合
+```python
+# LINE Bot + RAGFlow 整合架構
+class LineRAGBot:
+    """LINE Bot 與 RAGFlow 的整合機器人"""
+    
+    def __init__(self, line_token: str, ragflow_config: Dict):
+        self.line_bot_api = LineBotApi(line_token)
+        self.ragflow_tool = RAGFlowTool(**ragflow_config)
+    
+    async def handle_message(self, event):
+        """處理 LINE 用戶消息"""
+        user_message = event.message.text
+        
+        # 使用 RAGFlow 進行知識檢索
+        rag_result = await self.ragflow_tool.search_knowledge(
+            query=user_message,
+            dataset_id="default_dataset"
+        )
+        
+        # 回覆用戶
+        reply_text = self.format_response(rag_result)
+        self.line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=reply_text)
+        )
+```
+
+### 🔧 技術實現計劃
+
+#### Phase 1: 工具接口標準化
+- [ ] 設計統一的 RAGFlow 工具接口
+- [ ] 實現 JSON Schema 工具定義
+- [ ] 建立工具調用的標準化流程
+- [ ] 完成基礎的錯誤處理和重試機制
+
+#### Phase 2: AI 代理整合
+- [ ] 與主流 AI 代理框架整合 (LangChain, AutoGPT)
+- [ ] 實現工具調用的上下文管理
+- [ ] 建立多輪對話的會話狀態維護
+- [ ] 完成代理決策邏輯的優化
+
+#### Phase 3: LINE Bot 部署
+- [ ] LINE Bot Webhook 服務開發
+- [ ] 用戶身份驗證和權限管理
+- [ ] 多用戶會話隔離機制
+- [ ] 豐富媒體消息支援 (圖片、文件)
+
+#### Phase 4: 生產環境優化
+- [ ] 高並發處理能力優化
+- [ ] 分散式部署架構設計
+- [ ] 監控和告警系統建立
+- [ ] 成本控制和使用量統計
+
+### 🎯 預期效果
+
+| 整合方案 | 技術價值 | 商業價值 |
+|---------|---------|---------|
+| **AI 代理工具** | 標準化工具接口，可復用性高 | 降低 AI 應用開發成本 |
+| **LINE Bot 整合** | 即時通訊平台無縫接入 | 擴大用戶觸達範圍 |
+| **多平台支援** | 統一後端，多前端部署 | 提升系統靈活性 |
+| **企業級部署** | 高可用、高並發架構 | 滿足企業級應用需求 |
+
+### 📋 開發時程
+- **Q1 2025**: 完成工具接口標準化和基礎整合
+- **Q2 2025**: 實現 AI 代理和 LINE Bot 的完整整合
+- **Q3 2025**: 生產環境部署和性能優化
+- **Q4 2025**: 多平台擴展和企業級功能完善
+
 ## �  技術架構
 
 ### 後端技術棧
@@ -273,6 +375,8 @@ python3 test/run_all_tests.py
 | **後端開發** | FastAPI, Python 3.13 | RESTful API 設計 | ⭐⭐⭐⭐⭐ |
 | **前端開發** | Streamlit, HTML/CSS/JS | 用戶界面設計 | ⭐⭐⭐⭐ |
 | **AI/ML** | RAG, LLM Integration | 智能問答系統 | ⭐⭐⭐⭐⭐ |
+| **AI 代理** | LangChain, Tool Integration | AI 代理工具開發 | ⭐⭐⭐⭐ |
+| **聊天機器人** | LINE Bot API, Webhook | 即時通訊整合 | ⭐⭐⭐⭐ |
 | **DevOps** | Docker, Docker Compose | 容器化部署 | ⭐⭐⭐⭐ |
 | **測試** | Pytest, 集成測試 | 品質保證 | ⭐⭐⭐⭐ |
 
@@ -293,6 +397,18 @@ python3 test/run_all_tests.py
 - **日誌監控**: 結構化日誌和性能監控
 - **安全性**: API 認證、輸入驗證、CORS 配置
 
+#### 4. AI 代理整合設計
+- **工具標準化**: 統一的工具接口和 JSON Schema 定義
+- **上下文管理**: 多輪對話的狀態維護和記憶機制
+- **決策邏輯**: 智能代理的工具選擇和調用策略
+- **錯誤恢復**: 工具調用失敗的自動重試和降級機制
+
+#### 5. 聊天機器人架構
+- **多平台支援**: LINE Bot, Telegram, Discord 等平台整合
+- **用戶管理**: 身份驗證、權限控制、會話隔離
+- **消息處理**: 文字、圖片、文件等多媒體消息支援
+- **擴展性設計**: 支援大量並發用戶的架構設計
+
 ### 💡 創新亮點
 
 ```python
@@ -308,6 +424,32 @@ class IntelligentSessionManager:
         
     async def auto_cleanup_sessions(self) -> None:
         """基於使用模式的智能會話清理"""
+
+# AI 代理工具整合系統
+class RAGFlowAgentTool:
+    """
+    將 RAGFlow 功能包裝為標準化的 AI 代理工具
+    支援多種代理框架的無縫整合
+    """
+    
+    async def execute_tool(self, tool_input: Dict) -> ToolResult:
+        """執行 RAG 檢索工具"""
+        
+    def get_tool_definition(self) -> ToolSchema:
+        """返回工具的標準化定義"""
+
+# LINE Bot 智能整合
+class SmartLineBotHandler:
+    """
+    智能 LINE Bot 處理器，整合 RAGFlow 和 AI 代理
+    提供上下文感知的對話體驗
+    """
+    
+    async def handle_user_message(self, event: MessageEvent) -> None:
+        """處理用戶消息，智能調用 RAG 功能"""
+        
+    async def maintain_conversation_context(self, user_id: str) -> None:
+        """維護用戶對話上下文"""
 ```
 
 ## 🚀 部署與運維
@@ -343,16 +485,22 @@ docker-compose logs -f
 **目標職位**: AI 工程師 / 全棧開發工程師 / 機器學習工程師
 
 ### 💼 項目價值
-- **技術深度**: 展示完整的 AI 應用開發能力
+- **技術深度**: 展示完整的 AI 應用開發能力，從基礎 RAG 到高級代理整合
 - **工程實踐**: 體現企業級開發標準和最佳實踐
 - **創新思維**: 結合最新 AI 技術解決實際業務問題
 - **團隊協作**: 完整的文檔、測試和部署流程
+- **前瞻性設計**: AI 代理工具化和多平台整合的前沿探索
+- **商業應用**: LINE Bot 等即時通訊平台的實際商業價值
+- **可擴展性**: 支援多種 AI 代理框架和聊天機器人平台的統一架構
 
 ### 🔗 相關資源
 - **在線演示**: [Demo URL]
 - **技術文檔**: 完整的 API 文檔和開發指南
 - **代碼品質**: 遵循 PEP 8 標準，完整測試覆蓋
 - **持續集成**: GitHub Actions 自動化測試和部署
+- **開發進度**: AI 代理和 LINE Bot 整合的開發路線圖
+- **工具文檔**: RAGFlow 工具化的標準接口文檔
+- **整合示例**: 多平台聊天機器人的實現範例
 
 ---
 
