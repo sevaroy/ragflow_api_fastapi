@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  ragflow-api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - RAGFLOW_API_URL=${RAGFLOW_API_URL:-http://192.168.50.123}
+      - RAGFLOW_API_KEY=${RAGFLOW_API_KEY:-ragflow-Y2YWUxOTY4MDIwNzExZjBhMTgzMDI0Mm}
+    volumes:
+      - ./config.py:/app/config.py:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - ragflow-network
+
+networks:
+  ragflow-network:
+    driver: bridge
