@@ -2,7 +2,7 @@
 developmentMode = false
 
 [server]
-port = 8501
+# port = 8501  # 註解掉固定端口，允許命令行參數覆蓋
 address = "0.0.0.0"
 baseUrlPath = ""
 enableCORS = false
@@ -12,7 +12,7 @@ maxUploadSize = 200
 [browser]
 serverAddress = "localhost"
 gatherUsageStats = false
-serverPort = 8501
+# serverPort = 8501  # 註解掉固定端口
 
 [theme]
 primaryColor = "#667eea"

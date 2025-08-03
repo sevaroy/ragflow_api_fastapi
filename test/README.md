@@ -1,84 +1,156 @@
-# 測試和開發工具
+# 測試和評估系統
 
-這個資料夾包含了開發過程中的測試案例、實驗性實現和開發工具。
+## 🧪 測試文件說明
 
-## 📁 文件說明
+### 基本測試
+- `ragflow_test.py` - RAGFlow API 連接測試
+- `test_api_endpoints.py` - API 端點功能測試
+- `run_all_tests.py` - 執行所有基本測試
 
-### 測試工具
-- `ragflow_test.py` - API 連線測試
-- `test_api_endpoints.py` - API 端點測試
-- `test_fastapi.py` - FastAPI 服務測試
-- `test_streamlit.py` - Streamlit 應用測試
-- `final_demo.py` - 完整演示程序
-- `demo.py` - 基礎演示程序
+### DeepEval 評估系統
+- `deepeval_demo.py` - 快速演示 DeepEval 功能
+- `run_deepeval_test.py` - 完整的評估測試流程
 
-### 實驗性實現
-- `simple_chatbot.py` - 早期簡單實現
-- `simple_chatbot_fixed.py` - 修復版實現
-- `rag_chatbot.py` - 早期完整實現
-- `ragflow_client.py` - 早期客戶端實現
+### 演示程序
+- `final_demo.py` - 完整功能演示
+- `demo.py` - 基本功能演示
 
-### 開發工具
-- `run_all_tests.py` - 統一測試啟動腳本 🚀
-- `api_client_example.py` - API 客戶端示例
-- `test_chatbots.py` - 聊天機器人測試工具
-- `run_test.sh` - 一鍵測試腳本
+## 🚀 快速開始
 
-## 🚀 使用方法
-
-### 運行所有測試 (推薦)
+### 1. 基本測試
 ```bash
+# 測試 RAGFlow 連接
+python3 test/ragflow_test.py
+
+# 測試所有 API 端點
+python3 test/test_api_endpoints.py
+
+# 運行所有基本測試
 python3 test/run_all_tests.py
 ```
 
-### 運行 API 測試
+### 2. DeepEval 評估
 ```bash
-python3 test/ragflow_test.py
+# 設置 DeepEval 環境
+python3 setup_deepeval.py
+
+# 快速演示
+python3 test/deepeval_demo.py
+
+# 完整評估
+python3 test/run_deepeval_test.py
 ```
 
-### 測試 FastAPI 服務
+## 📊 評估系統特色
+
+### 自動問答數據生成
+- 基於數據集內容自動生成測試問題
+- 支援法律、技術等專業領域
+- 可自定義問題數量和難度
+
+### 多維度評估指標
+- 回答相關性 (Answer Relevancy)
+- 回答忠實度 (Faithfulness)
+- 上下文精確度 (Contextual Precision)
+- 上下文召回率 (Contextual Recall)
+- 幻覺檢測 (Hallucination)
+- 偏見檢測 (Bias)
+
+### 詳細評估報告
+- 整體統計數據
+- 各項指標詳情
+- 失敗案例分析
+- 改進建議
+
+## 🔧 配置說明
+
+### 環境變數
 ```bash
-python3 test/test_fastapi.py
+# RAGFlow API (必需)
+export RAGFLOW_API_URL="http://your-ragflow-server:8080"
+export RAGFLOW_API_KEY="your-api-key"
+
+# OpenAI API (可選，用於高級評估)
+export OPENAI_API_KEY="your-openai-key"
 ```
 
-### 測試 Streamlit 應用
-```bash
-python3 test/test_streamlit.py
+### 評估參數
+- 預設問題數量: 10
+- 最大問題數量: 50
+- 評估指標閾值: 可在 `deepeval_config.py` 中調整
+
+## 📝 使用示例
+
+### 基本評估流程
+```python
+from deepeval_integration import RAGFlowEvaluator
+
+# 創建評估器
+evaluator = RAGFlowEvaluator()
+
+# 設置數據集
+evaluator.setup_chatbot("dataset-id", "數據集名稱")
+
+# 生成測試數據
+test_data = evaluator.generate_test_data_from_documents("dataset-id", 5)
+
+# 執行評估
+results = evaluator.evaluate_test_cases(test_data)
+
+# 生成報告
+report = evaluator.generate_report(results)
+print(report)
 ```
 
-### 運行完整演示
-```bash
-python3 test/final_demo.py
+### 自定義測試數據
+```python
+custom_test_data = [
+    {
+        'id': 'test_1',
+        'question': '什麼是人工智能？',
+        'expected_answer': 'AI 是模擬人類智能的技術',
+        'context': '人工智能相關內容',
+        'source': 'manual'
+    }
+]
+
+results = evaluator.evaluate_test_cases(custom_test_data)
 ```
 
-### 測試 API 端點
-```bash
-python3 test/test_api_endpoints.py
+## 🎯 評估結果解讀
+
+### 分數範圍
+- **0.8-1.0**: 優秀
+- **0.6-0.8**: 良好
+- **0.4-0.6**: 一般
+- **0.0-0.4**: 需要改進
+
+### 通過標準
+- 單項指標達到設定閾值
+- 整體分數 ≥ 0.6
+- 通過率 ≥ 60%
+
+## 🔍 故障排除
+
+### 常見問題
+1. **連接失敗**: 檢查 RAGFlow API 配置
+2. **評估錯誤**: 確認 OpenAI API 密鑰設置
+3. **數據生成失敗**: 檢查數據集是否存在
+4. **內存不足**: 減少測試問題數量
+
+### 調試模式
+```python
+import logging
+logging.basicConfig(level=logging.DEBUG)
 ```
 
-### API 客戶端示例
-```bash
-python3 test/api_client_example.py
-```
+## 📚 相關文檔
 
-## ⚠️ 注意事項
+- [DeepEval 使用指南](../DEEPEVAL_GUIDE.md)
+- [項目總結](../PROJECT_SUMMARY.md)
+- [RAGFlow API 文檔](https://ragflow.io/docs/dev/python_api_reference)
 
-- 這些文件主要用於開發和測試目的
-- 部分實現可能使用舊版 API 或實驗性功能
-- 生產環境請使用根目錄下的最終版本
+---
 
-## 📚 開發歷程
-
-這些文件記錄了從早期實驗到最終實現的完整開發過程：
-
-1. **早期探索** - `simple_chatbot.py`
-2. **API 調試** - `test_api_endpoints.py`
-3. **功能完善** - `simple_chatbot_fixed.py`
-4. **官方 API 適配** - 最終版本移至根目錄
-
-## 🔄 版本演進
-
-- v1.0: 基礎 API 調用實現
-- v2.0: 錯誤處理和重試機制
-- v3.0: 官方 API 標準化
-- v4.0: 最終生產版本 (根目錄)
+**更新時間**: 2025年8月3日  
+**版本**: v1.0.0
