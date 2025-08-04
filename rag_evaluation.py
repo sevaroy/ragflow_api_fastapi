@@ -316,14 +316,9 @@ def run_evaluation(evaluator):
                 )
                 metrics_scores = eval_result.get('metrics_scores', {})
             else:
-                # 基礎評估模式
-                metrics_scores = {
-                    'basic_relevancy': {
-                        'score': 0.8,  # 模擬分數
-                        'passed': True,
-                        'threshold': 0.7
-                    }
-                }
+                # 無評估指標可用
+                st.error("❌ 無法進行評估：DeepEval 指標未初始化")
+                return
             
             # 計算整體結果
             passed_count = sum(1 for m in metrics_scores.values() if m.get('passed', False))
