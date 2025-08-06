@@ -1,0 +1,28 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+        language_version: python3
+        exclude: ^(docs/|.*\.ipynb$)
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.0.272
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+        exclude: ^(docs/|.*\.ipynb$)
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        name: isort (python)
+        exclude: ^(docs/|.*\.ipynb$)
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.3.0
+    hooks:
+      - id: mypy
+        additional_dependencies: [types-requests, types-PyYAML]
+        exclude: ^(docs/|.*\.ipynb$)

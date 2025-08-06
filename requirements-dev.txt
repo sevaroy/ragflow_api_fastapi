@@ -1,0 +1,8 @@
+# 開發工具
+black==23.3.0
+ruff==0.0.272
+isort==5.12.0
+pre-commit==3.3.2
+mypy==1.3.0
+types-requests==2.31.0.1
+types-PyYAML==6.0.12.10

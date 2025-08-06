@@ -1,0 +1,28 @@
+{
+  "evaluation_id": "cb0c8449-19b2-456b-93f5-7390f554dd23",
+  "timestamp": "2025-08-06T21:18:35.356736",
+  "dataset_id": null,
+  "dataset_name": null,
+  "test_cases_count": 1,
+  "results": {
+    "faithfulness": 0.0,
+    "answer_relevancy": 0.8722073134526046,
+    "context_precision": 0.0,
+    "context_recall": 0.0,
+    "answer_similarity": 0.0
+  },
+  "test_cases": [
+    {
+      "question": "在113年的民法與民事訴訟法(二)試題中，甲對乙提起的訴訟中，他主張借名登記的土地(A地)是在何時購買的？",
+      "answer": "根據113年民法與民事訴訟法(二)試題內容，甲對乙提起的訴訟中主張其於**105年3月間**購買A地，並借用乙名義登記為所有人。此為借名登記契約的起始時點，後因無借名需要而終止契約，進而引發所有權返還之爭議 [ID:0]。\n\n其他相關細節：\n1. 甲主張終止借名登記後，乙拒絕返還A地所有權。\n2. 乙抗辯稱A地已作為債務抵償（112年12月1日）並出售予第三人丙（113年6月1日）。\n3. 追加問題涉及丙是否受判決效力拘束等程序法爭點 [ID:0] [ID:3]。\n\n該時間點（105年3月）為解題關鍵事實之一，後續法律關係均由此衍生。",
+      "contexts": [
+        "chunks",
+        "doc_aggs",
+        "total"
+      ],
+      "dataset_id": "d87b0e9a6ecf11f096f01ee7e462d96e",
+      "dataset_name": "民法與民事訴訟法(二",
+      "timestamp": "2025-08-06T21:08:30.260512"
+    }
+  ]
+}

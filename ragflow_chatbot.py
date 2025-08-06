@@ -9,8 +9,12 @@ import requests
 import json
 import uuid
 import time
+import os
 from typing import Dict, List, Optional, Any
-from config import RAGFLOW_API_URL, RAGFLOW_API_KEY
+
+# 從環境變數讀取配置
+RAGFLOW_API_URL = os.getenv('RAGFLOW_API_URL', 'http://localhost:9380')
+RAGFLOW_API_KEY = os.getenv('RAGFLOW_API_KEY', '')
 
 class RAGFlowOfficialClient:
     def __init__(self, api_url: str = None, api_key: str = None):

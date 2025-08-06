@@ -1,0 +1,14 @@
+{
+  "ragflow_api_url": "http://192.168.50.123:9380",
+  "ragflow_api_key": "ragflow-Y2YWUxOTY4MDIwNzExZjBhMTgzMDI0Mm",
+  "openai_api_key": "",
+  "evaluation_threshold": 0.7,
+  "default_test_cases": 10,
+  "auto_evaluation": true,
+  "default_metrics": [
+    "faithfulness",
+    "answer_relevancy"
+  ],
+  "ui_theme": "light",
+  "language": "zh-TW"
+}
