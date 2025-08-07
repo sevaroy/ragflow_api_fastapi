@@ -22,7 +22,16 @@ def load_evaluation_results() -> List[Dict]:
     
     # 從 session state 載入
     if 'evaluation_results' in st.session_state:
-        results.extend(st.session_state.evaluation_results)
+        for session_result in st.session_state.evaluation_results:
+            # 確保所有必要欄位都存在
+            normalized_result = {
+                'timestamp': session_result.get('timestamp', ''),
+                'results': session_result.get('results', {}),
+                'test_cases_count': session_result.get('test_cases_count', 0),
+                'dataset_name': session_result.get('dataset_name', 'Unknown'),
+                'filepath': session_result.get('filepath', 'session_state')
+            }
+            results.append(normalized_result)
     
     # 從文件系統載入
     if os.path.exists('data/evaluations'):
@@ -107,7 +116,7 @@ def create_metrics_overview_chart(results: List[Dict]) -> go.Figure:
                     'date': timestamp,
                     'metric': metric,
                     'score': score,
-                    'dataset': result['dataset_name']
+                    'dataset': result.get('dataset_name') or 'Unknown'
                 })
     
     df = pd.DataFrame(metrics_data)
@@ -348,7 +357,7 @@ def show_dashboard_page():
             row = {
                 '序號': i + 1,
                 '時間': result['timestamp'][:19].replace('T', ' '),
-                '數據集': result['dataset_name'],
+                '數據集': result.get('dataset_name') or 'Unknown',
                 '測試案例數': result['test_cases_count']
             }
             

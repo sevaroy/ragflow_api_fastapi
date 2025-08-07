@@ -1,0 +1,29 @@
+{
+  "evaluation_id": "5d505dc7-90f1-415e-adf1-d7be0e4d3770",
+  "timestamp": "2025-08-07T23:42:00.844897",
+  "dataset_id": null,
+  "dataset_name": null,
+  "test_cases_count": 1,
+  "results": {
+    "faithfulness": 0.0,
+    "answer_relevancy": 0.8952460564632755,
+    "context_precision": 0.0,
+    "context_recall": 0.0,
+    "answer_similarity": 0.0,
+    "answer_correctness": 0.17271164310033488
+  },
+  "test_cases": [
+    {
+      "question": "「在112年的民法與民事訴訟法(二)第一題，甲將A地出售予乙的總價金是多少？乙在違約前已給付了多少金額？」",
+      "answer": "根據112年民法與民事訴訟法(二)第一題的內容：\n\n1. **總價金**：甲將A地出售予乙的總價金為新臺幣5千萬元（即50,000,000元）。契約訂立於108年5月1日，約定乙違約時已給付價金充作違約金 [ID:0] [ID:1]。\n\n2. **已給付金額**：乙在違約前已於108年10月5日給付部分價金2,500萬元（即25,000,000元），占總價金的50% [ID:0] [ID:1]。\n\n以上資料均來自試題中明確記載的交易事實。",
+      "contexts": [
+        "chunks",
+        "doc_aggs",
+        "total"
+      ],
+      "dataset_id": "d87b0e9a6ecf11f096f01ee7e462d96e",
+      "dataset_name": "民法與民事訴訟法(二",
+      "timestamp": "2025-08-07T23:41:23.710643"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+# GitHub Pages Configuration
+title: "RAGFlow + RAGAS 智能評估平台"
+description: "企業級 RAG 系統性能評估解決方案 - 基於 Streamlit + RAGFlow API + RAGAS 的整合平台"
+
+# Theme (可選，使用自定義 HTML)
+# theme: minima
+
+# Plugins
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+
+# Settings
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# Social links (可選)
+github_username: your-github-username
+linkedin_username: your-linkedin-username
+
+# Analytics (可選)
+# google_analytics: "your-google-analytics-id"
+
+# Exclude from processing
+exclude:
+  - node_modules/
+  - vendor/
+  - .bundle/
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - README_OLD.md
+  - test/
+  - __pycache__/
+  - venv/
+  - "*.pyc"

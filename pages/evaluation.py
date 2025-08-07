@@ -421,6 +421,7 @@ def show_evaluation_page():
                             'results': results['data'],
                             'test_cases_count': len(test_cases),
                             'metrics_used': selected_metrics,
+                            'dataset_name': st.session_state.current_dataset.get('name') if st.session_state.current_dataset else 'Unknown',
                             'filepath': filepath
                         }
                         st.session_state.evaluation_results.append(evaluation_record)
